@@ -11,7 +11,7 @@ import com.ccimahajanga.gd.service.FichierConsulaireRepository;
 public class FichierConsulaireController {
 	@Autowired
 	private FichierConsulaireRepository fichierConsulaireRepositoryNew;
-	@RequestMapping("/FichierConsulaire")
+	@RequestMapping("/fichier-consulaire")
     public Iterable<FichierConsulaire> index() {
         return fichierConsulaireRepositoryNew.findAll();
     }

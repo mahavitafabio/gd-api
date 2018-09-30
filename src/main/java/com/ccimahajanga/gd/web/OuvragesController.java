@@ -11,7 +11,7 @@ import com.ccimahajanga.gd.service.OuvragesRepository;
 public class OuvragesController {
 	@Autowired
 	private OuvragesRepository ouvragesRepositoryNew;
-	@RequestMapping("/Ouvrages")
+	@RequestMapping("/ouvrage")
     public Iterable<Ouvrages> index() {
         return ouvragesRepositoryNew.findAll();
     }

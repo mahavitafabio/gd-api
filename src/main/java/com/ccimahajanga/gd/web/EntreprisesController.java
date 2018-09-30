@@ -11,7 +11,7 @@ import com.ccimahajanga.gd.service.EntreprisesRepository;
 public class EntreprisesController {
 	@Autowired
 	private EntreprisesRepository entreprisesRepository;
-	@RequestMapping("/")
+	@RequestMapping("/enterprise")
     public Iterable<Entreprises> index() {
         return entreprisesRepository.findAll();
     }
