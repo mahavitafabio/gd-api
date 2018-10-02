@@ -4,7 +4,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
 import com.ccimahajanga.gd.domain.Entreprises;
 import com.ccimahajanga.gd.domain.FichierConsulaire;
 import com.ccimahajanga.gd.domain.Ouvrages;
