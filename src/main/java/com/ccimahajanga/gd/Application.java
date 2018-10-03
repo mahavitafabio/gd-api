@@ -39,13 +39,13 @@ public class Application {
 			}
 			for (FichierConsulaire fichierConsulaire : fichierConsulaireRepository.findAll()) {
 				System.out.println(fichierConsulaire.getConsulaireId());
+				System.out.println(fichierConsulaire.getRaisonSocial());
 				System.out.println(fichierConsulaire.getAdresse());
 				System.out.println(fichierConsulaire.getEmail());
 				System.out.println(fichierConsulaire.getCreatedDate());
 				System.out.println(fichierConsulaire.getNumeroFiscal());
 				System.out.println(fichierConsulaire.getFormeJuridique());
 				System.out.println(fichierConsulaire.getNumeroRegistre());
-				System.out.println(fichierConsulaire.getRaisonSocial());
 				System.out.println(fichierConsulaire.getSigle());
 				System.out.println(fichierConsulaire.getUpdatedDate());
 				System.out.println(fichierConsulaire.getNumeroIdentite());
