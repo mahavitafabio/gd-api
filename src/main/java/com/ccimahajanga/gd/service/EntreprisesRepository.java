@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.ccimahajanga.gd.domain.Entreprises;
+import com.ccimahajanga.gd.domain.Entreprise;
 
-public interface EntreprisesRepository extends CrudRepository<Entreprises, Integer > {
- List<Entreprises> findByNomEntreprise(String nomEntreprise);
+public interface EntreprisesRepository extends CrudRepository<Entreprise, Integer > {
+ List<Entreprise> findByNomEntreprise(String nomEntreprise);
 }

@@ -4,7 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import com.ccimahajanga.gd.domain.Entreprises;
+import com.ccimahajanga.gd.domain.Entreprise;
 import com.ccimahajanga.gd.domain.FichierConsulaire;
 import com.ccimahajanga.gd.domain.Ouvrages;
 import com.ccimahajanga.gd.service.EntreprisesRepository;
@@ -19,7 +19,7 @@ public class Application {
 	@Bean
 	public CommandLineRunner demo(EntreprisesRepository repository, OuvragesRepository ouvragesRepository, FichierConsulaireRepository fichierConsulaireRepository ) {
 		return (args) -> {
-			for (Entreprises entreprise : repository.findAll()) {
+			for (Entreprise entreprise : repository.findAll()) {
 			System.out.println(entreprise.getEntreprisesId()+ ":" + entreprise.getNomEntreprise());
 			System.out.println(entreprise.getNomResponsable());
 			System.out.println(entreprise.getContact());
