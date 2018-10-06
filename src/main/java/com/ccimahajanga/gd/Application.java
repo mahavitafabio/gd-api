@@ -4,9 +4,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import com.ccimahajanga.gd.domain.CertificatOrigine;
 import com.ccimahajanga.gd.domain.Entreprise;
 import com.ccimahajanga.gd.domain.FichierConsulaire;
 import com.ccimahajanga.gd.domain.Ouvrages;
+import com.ccimahajanga.gd.service.CertificatOrigineRepository;
 import com.ccimahajanga.gd.service.EntreprisesRepository;
 import com.ccimahajanga.gd.service.FichierConsulaireRepository;
 import com.ccimahajanga.gd.service.OuvragesRepository;
@@ -17,7 +20,7 @@ public class Application {
 		SpringApplication.run(Application.class);
 	}
 	@Bean
-	public CommandLineRunner demo(EntreprisesRepository repository, OuvragesRepository ouvragesRepository, FichierConsulaireRepository fichierConsulaireRepository ) {
+	public CommandLineRunner demo(EntreprisesRepository repository, OuvragesRepository ouvragesRepository, FichierConsulaireRepository fichierConsulaireRepository, CertificatOrigineRepository certificatOrigineRepository ) {
 		return (args) -> {
 			for (Entreprise entreprise : repository.findAll()) {
 			System.out.println(entreprise.getEntreprisesId()+ ":" + entreprise.getNomEntreprise());
@@ -50,6 +53,22 @@ public class Application {
 				System.out.println(fichierConsulaire.getUpdatedDate());
 				System.out.println(fichierConsulaire.getNumeroIdentite());
 				System.out.println(fichierConsulaire.getCapital());
+				
+			}
+			for (CertificatOrigine certificatOrigine : certificatOrigineRepository.findAll()) {
+				System.out.println(certificatOrigine.getCertificatId());
+				System.out.println(certificatOrigine.getNumero());
+				System.out.println(certificatOrigine.getDate());
+				System.out.println(certificatOrigine.getNomEntreprise());
+				System.out.println(certificatOrigine.getAdresse());
+				System.out.println(certificatOrigine.getDestination());
+				System.out.println(certificatOrigine.getProduit());
+				System.out.println(certificatOrigine.getQuantiteExporte());
+				System.out.println(certificatOrigine.getUnite());
+				System.out.println(certificatOrigine.getNombreConteneur());
+				System.out.println(certificatOrigine.getPrixUnitaire());
+				System.out.println(certificatOrigine.getMontant());
+				
 				
 			}
 		};
