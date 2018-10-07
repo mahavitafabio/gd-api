@@ -32,7 +32,8 @@ dependencies {
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:23.0'
    	// https://mvnrepository.com/artifact/mysql/mysql-connector-java
-compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
+	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
+	compile 'org.apache.poi:poi-ooxml:3.1+'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
