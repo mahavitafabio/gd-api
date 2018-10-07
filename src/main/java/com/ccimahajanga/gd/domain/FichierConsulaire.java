@@ -6,8 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="FichierConsulaire")
 public class FichierConsulaire {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -138,4 +140,15 @@ public class FichierConsulaire {
 	public void setCreatedDate(Date createDate) {
 		this.createdDate = createDate;
 	}
+	
+	@Override
+	public String toString() {
+		return "FichierConsulaire [consulaireId=" + consulaireId + ", capital=" + capital 
+				+ ", adresse=" + adresse + ", createdDate=" + createdDate + ", updatedDate=" + updatedDate 
+				+ ", email=" + email + ", formeJuridique=" + formeJuridique
+				+ ", numeroFiscal=" + numeroFiscal + ", formeJuridique=" + formeJuridique + ", numeroFiscal="
+				+ numeroFiscal + ", numeroIdentite=" + numeroIdentite + ", numeroRegistre=" + numeroRegistre 
+				+ ", raisonSocial=" + raisonSocial + ", sigle=" + sigle + "]";
+	} 
+	
 }

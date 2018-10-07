@@ -1,18 +1,37 @@
 package com.ccimahajanga.gd.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ccimahajanga.gd.domain.FichierConsulaire;
-import com.ccimahajanga.gd.service.FichierConsulaireRepository;
+import com.ccimahajanga.gd.service.FichierConsulaireService;
 
 @RestController
+@RequestMapping("/fichier-consulaire")
 public class FichierConsulaireController {
+	
 	@Autowired
-	private FichierConsulaireRepository fichierConsulaireRepositoryNew;
-	@RequestMapping("/fichier-consulaire")
-    public Iterable<FichierConsulaire> index() {
-        return fichierConsulaireRepositoryNew.findAll();
+	private FichierConsulaireService fichierConsulaireService;
+	
+	@RequestMapping(method = RequestMethod.GET,
+		    produces = {"application/json"})
+    public Iterable<FichierConsulaire> getFichierConsulaires() {
+        return fichierConsulaireService.get();
     }
+	
+	@RequestMapping(method = RequestMethod.POST)
+    public void postFichierConsulaires(@RequestBody FichierConsulaire fichierConsulaire) {
+		System.out.println(fichierConsulaire);
+		fichierConsulaireService.save(fichierConsulaire);
+    }
+	
+	@RequestMapping(method = RequestMethod.PUT)
+    public void putFichierConsulaires(@RequestBody FichierConsulaire fichierConsulaire) {
+		System.out.println(fichierConsulaire);
+		fichierConsulaireService.save(fichierConsulaire);
+    }
+	
 }

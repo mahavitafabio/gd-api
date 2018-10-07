@@ -6,8 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="CertificatOrigine")
 public class CertificatOrigine {
 	 @Id
 	 @GeneratedValue(strategy=GenerationType.AUTO)
@@ -116,5 +118,13 @@ public class CertificatOrigine {
 		this.montant = montant;
 	}
 	 
-	 
+	@Override
+	public String toString() {
+		return "CertificatOrigine [certificatId=" + certificatId + ", numero=" + numero
+				+ ", date=" + date + ", nomEntreprise=" + nomEntreprise + ", adresse="
+				+ adresse + ", destination=" + destination + ", produit=" + produit 
+				+ ", quantiteExporte=" + quantiteExporte + ", unite=" + unite + ", nombreConteneur="
+				+ nombreConteneur + ", prixUnitaire=" + prixUnitaire + ", montant=" + montant + "]";
+	} 
+	
 }

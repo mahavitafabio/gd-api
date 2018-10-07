@@ -4,8 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="Ouvrages")
 public class Ouvrages {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -83,6 +85,11 @@ public class Ouvrages {
 	public void setCommentaire(String commentaire) {
 		this.commentaire = commentaire;
 	}
-	
+	@Override
+	public String toString() {
+		return "Ouvrages [ouvrageId=" + ouvrageId + ", codeOuvrages=" + codeOuvrages
+				+ ", titreOuvrages=" + titreOuvrages + ", etage=" + etage + ", ranger="
+				+ ranger + ", nombreExemplaire=" + nombreExemplaire + ", commentaire=" + commentaire + "]";
+	}
 	
 }
