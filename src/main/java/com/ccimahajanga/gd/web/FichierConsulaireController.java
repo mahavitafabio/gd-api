@@ -1,5 +1,10 @@
 package com.ccimahajanga.gd.web;
 
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +37,20 @@ public class FichierConsulaireController {
     public void putFichierConsulaires(@RequestBody FichierConsulaire fichierConsulaire) {
 		System.out.println(fichierConsulaire);
 		fichierConsulaireService.save(fichierConsulaire);
+    }
+	
+	@RequestMapping(method = RequestMethod.DELETE)
+    public void deleteFichierConsulaires(@RequestBody List<Integer> idList) {
+		System.out.println(idList);
+		fichierConsulaireService.delete(idList);
+    }
+	
+	@RequestMapping(value="/export", method = RequestMethod.GET)
+    public void exportFichierConsulaires(HttpServletResponse response) throws IOException {
+		response.setContentType("application/octet-stream");
+		response.addHeader("Content-disposition", "attachment; filename=fichierConsulaires.xlsx");
+		response.addHeader("Cache-Control", "no-cache");
+		fichierConsulaireService.export(response.getOutputStream());
     }
 	
 }
