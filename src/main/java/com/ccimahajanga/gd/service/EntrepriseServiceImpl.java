@@ -1,22 +1,32 @@
 package com.ccimahajanga.gd.service;
 
 import java.awt.Color;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ccimahajanga.gd.domain.Entreprise;
 
@@ -112,5 +122,48 @@ public class EntrepriseServiceImpl implements EntrepriseService {
 		workbook.close();
 		outputStream.flush();
 		outputStream.close();
+	}
+
+	@Override
+	public void upload(MultipartFile file) throws IllegalStateException, IOException, InvalidFormatException {
+		File convFile = new File( file.getOriginalFilename());
+		DataFormatter dataFormatter = new DataFormatter();
+		file.transferTo(convFile);
+		Workbook workbook = WorkbookFactory.create(convFile);
+		Sheet sheet = workbook.getSheetAt(0);
+		Iterator<Row> rowIterator = sheet.rowIterator();
+		this.validateHeaders(rowIterator.next());
+        while (rowIterator.hasNext()) {
+            Row row = rowIterator.next();
+
+            // Now let's iterate over the columns of the current row
+            Iterator<Cell> cellIterator = row.cellIterator();
+
+            while (cellIterator.hasNext()) {
+                Cell cell = cellIterator.next();
+                String cellValue = dataFormatter.formatCellValue(cell);
+                System.out.print(cellValue + "\t");
+            }
+            System.out.println();
+        }
+	}
+	
+	private void validateHeaders(Row row) {
+		DataFormatter dataFormatter = new DataFormatter();
+		Iterator<Cell> cellIterator = row.cellIterator();
+		cellIterator.next();
+		List<String> headers 
+			= new ArrayList<>(Arrays.asList("ENTREPRISE_ID",
+					"NOM_ENTREPRISE", "ADRESSE_ENTREPRISE", "CONTACT", "NOM_RESPONSABLE"));
+		Iterator<String> headerIterator = headers.iterator();
+        while (cellIterator.hasNext()) {
+            Cell cell = cellIterator.next();
+            String cellValue = dataFormatter.formatCellValue(cell);
+            System.out.println(cellValue + "\t");
+            String header = headerIterator.next();
+            if(!cellValue.equals(header)) {
+            	throw new IllegalArgumentException("Invalid header " + cellValue);
+            }
+        }
 	}
 }
