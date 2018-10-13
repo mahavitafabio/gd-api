@@ -2,7 +2,9 @@ package com.ccimahajanga.gd.service;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -125,45 +127,112 @@ public class EntrepriseServiceImpl implements EntrepriseService {
 	}
 
 	@Override
-	public void upload(MultipartFile file) throws IllegalStateException, IOException, InvalidFormatException {
-		File convFile = new File( file.getOriginalFilename());
+	public void upload(MultipartFile multipart) throws IllegalStateException, IOException, InvalidFormatException {
+		List<String> headers 
+		= new ArrayList<>(Arrays.asList("ENTREPRISE_ID",
+				"NOM_ENTREPRISE", "ADRESSE_ENTREPRISE", "CONTACT", "NOM_RESPONSABLE"));
 		DataFormatter dataFormatter = new DataFormatter();
-		file.transferTo(convFile);
-		Workbook workbook = WorkbookFactory.create(convFile);
+		InputStream is = multipart.getInputStream();
+		Workbook workbook = WorkbookFactory.create(is);
 		Sheet sheet = workbook.getSheetAt(0);
 		Iterator<Row> rowIterator = sheet.rowIterator();
-		this.validateHeaders(rowIterator.next());
+		Row row = rowIterator.next();
+		boolean isInsert = this.isInsert(row, headers.get(0));
+		
+		this.validateHeaders(row, headers, isInsert);
+		//this.validateData();
         while (rowIterator.hasNext()) {
-            Row row = rowIterator.next();
-
+            row = rowIterator.next();
+            //validateData(row);
             // Now let's iterate over the columns of the current row
             Iterator<Cell> cellIterator = row.cellIterator();
-
-            while (cellIterator.hasNext()) {
-                Cell cell = cellIterator.next();
-                String cellValue = dataFormatter.formatCellValue(cell);
-                System.out.print(cellValue + "\t");
+            Entreprise ent = new Entreprise();
+            Cell cell = cellIterator.next();
+            String cellValue;
+            if (!isInsert) {
+                cellValue = dataFormatter.formatCellValue(cell);
+                ent.setEntreprisesId(Integer.parseInt(cellValue));
+                cell = cellIterator.next();
             }
-            System.out.println();
+            cellValue = dataFormatter.formatCellValue(cell);
+            ent.setNomEntreprise(cellValue);
+            
+            cell = cellIterator.next();
+            cellValue = dataFormatter.formatCellValue(cell);
+            ent.setAdresseEntreprise(cellValue);
+            
+            cell = cellIterator.next();
+            cellValue = dataFormatter.formatCellValue(cell);
+            if (cellValue != null || !"".equals(cellValue)) {
+            	ent.setContact(Integer.parseInt(cellValue));
+            }
+            
+            cell = cellIterator.next();
+            cellValue = dataFormatter.formatCellValue(cell);
+            ent.setActivitePrincipale(cellValue);
+            this.save(ent);
         }
 	}
 	
-	private void validateHeaders(Row row) {
+//	private void validateData(Row row) {
+//		DataFormatter dataFormatter = new DataFormatter();
+//		Iterator<Cell> cellIterator = row.cellIterator();
+//		List<String> dataTypes 
+//			= new ArrayList<>(Arrays.asList("NUMBER/NULL",
+//				"STRING", "STRING", "NUMBER", "STRING"));
+//		Iterator<String> dataTypeIterator = dataTypes.iterator();
+//        while (cellIterator.hasNext()) {
+//            Cell cell = cellIterator.next();
+//            String cellValue = dataFormatter.formatCellValue(cell);
+//            System.out.println(cellValue + "\t");
+//            String dataType = dataTypeIterator.next();
+//            if("NUMBER".equalsIgnoreCase(dataType)) {
+//            	try {
+//            		Integer.getInteger(cellValue);
+//            	} catch (Exception e) {
+//            		throw new IllegalArgumentException("This column accept only numbers. Invalid value: " + cellValue);
+//            	}
+//            	
+//            }
+//            if("NUMBER/NULL".equalsIgnoreCase(dataType) && (cellValue != null && !"".equalsIgnoreCase(cellValue.trim()))) {
+//            	try {
+//            		Integer.getInteger(cellValue);
+//            	} catch (Exception e) {
+//            		throw new IllegalArgumentException("This column accept only numbers. Invalid value: " + cellValue);
+//            	}
+//            	
+//            }
+//        }
+//        System.out.println("Data validated");
+//		
+//	}
+	
+	private boolean isInsert(Row row, String idHeader) {
 		DataFormatter dataFormatter = new DataFormatter();
 		Iterator<Cell> cellIterator = row.cellIterator();
-		cellIterator.next();
-		List<String> headers 
-			= new ArrayList<>(Arrays.asList("ENTREPRISE_ID",
-					"NOM_ENTREPRISE", "ADRESSE_ENTREPRISE", "CONTACT", "NOM_RESPONSABLE"));
+		Cell cell = cellIterator.next();
+		String cellValue = dataFormatter.formatCellValue(cell);
+		if(cellValue.equals(idHeader)) {
+			return false;
+        }
+		return true;
+	}
+	
+	private void validateHeaders(Row row, List<String> headers, boolean isInsert) {
+		DataFormatter dataFormatter = new DataFormatter();
+		Iterator<Cell> cellIterator = row.cellIterator();
 		Iterator<String> headerIterator = headers.iterator();
+		if (isInsert) {
+			headerIterator.next();
+		}
         while (cellIterator.hasNext()) {
-            Cell cell = cellIterator.next();
-            String cellValue = dataFormatter.formatCellValue(cell);
-            System.out.println(cellValue + "\t");
+        	Cell cell = cellIterator.next();
             String header = headerIterator.next();
+            String cellValue = dataFormatter.formatCellValue(cell);
             if(!cellValue.equals(header)) {
             	throw new IllegalArgumentException("Invalid header " + cellValue);
             }
         }
+        System.out.println("Headers validated");
 	}
 }
