@@ -1,8 +1,6 @@
 package com.ccimahajanga.gd.service;
 
 import java.awt.Color;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -97,8 +95,11 @@ public class EntrepriseServiceImpl implements EntrepriseService {
 		cell.setCellValue("ADRESSE_ENTREPRISE");
 		cell = header.createCell(3);
 		cell.setCellStyle(headerStyle);
-		cell.setCellValue("CONTACT");
+		cell.setCellValue("ACTIVITE_PRINCIPALE");
 		cell = header.createCell(4);
+		cell.setCellStyle(headerStyle);
+		cell.setCellValue("CONTACT");
+		cell = header.createCell(5);
 		cell.setCellStyle(headerStyle);
 		cell.setCellValue("NOM_RESPONSABLE");
 		
@@ -113,8 +114,10 @@ public class EntrepriseServiceImpl implements EntrepriseService {
 			cell = row.createCell(2);
 			cell.setCellValue(entreprise.getAdresseEntreprise());
 			cell = row.createCell(3);
-			cell.setCellValue(entreprise.getContact());
+			cell.setCellValue(entreprise.getActivitePrincipale());
 			cell = row.createCell(4);
+			cell.setCellValue(entreprise.getContact());
+			cell = row.createCell(5);
 			cell.setCellValue(entreprise.getNomResponsable());
 		}
 		System.out.println("created worksheet");
@@ -130,7 +133,7 @@ public class EntrepriseServiceImpl implements EntrepriseService {
 	public void upload(MultipartFile multipart) throws IllegalStateException, IOException, InvalidFormatException {
 		List<String> headers 
 		= new ArrayList<>(Arrays.asList("ENTREPRISE_ID",
-				"NOM_ENTREPRISE", "ADRESSE_ENTREPRISE", "CONTACT", "NOM_RESPONSABLE"));
+				"NOM_ENTREPRISE", "ADRESSE_ENTREPRISE", "ACTIVITE_PRINCIPALE", "CONTACT", "NOM_RESPONSABLE"));
 		DataFormatter dataFormatter = new DataFormatter();
 		InputStream is = multipart.getInputStream();
 		Workbook workbook = WorkbookFactory.create(is);
@@ -163,13 +166,17 @@ public class EntrepriseServiceImpl implements EntrepriseService {
             
             cell = cellIterator.next();
             cellValue = dataFormatter.formatCellValue(cell);
+            ent.setActivitePrincipale(cellValue);
+            
+            cell = cellIterator.next();
+            cellValue = dataFormatter.formatCellValue(cell);
             if (cellValue != null || !"".equals(cellValue)) {
             	ent.setContact(Integer.parseInt(cellValue));
             }
             
             cell = cellIterator.next();
             cellValue = dataFormatter.formatCellValue(cell);
-            ent.setActivitePrincipale(cellValue);
+            ent.setNomResponsable(cellValue);
             this.save(ent);
         }
 	}

@@ -18,7 +18,7 @@ public class FichierConsulaire {
 	private String formeJuridique;
 	private String adresse;
 	private String email;
-	private String capital;
+	private Integer capital;
 	private Integer numeroRegistre;
 	private Integer numeroFiscal;
 	private Integer numeroIdentite;
@@ -28,7 +28,7 @@ public class FichierConsulaire {
 	public FichierConsulaire() {}
 	
 	public FichierConsulaire(Integer consulaireId, String raisonSocial, String sigle, String formeJuridique, String adresse, String email,
-			String capital, Integer numeroRegistre, Integer numeroFiscal, Integer numeroIdentite, Date updateDate, Date createDate) {
+			Integer capital, Integer numeroRegistre, Integer numeroFiscal, Integer numeroIdentite, Date updateDate, Date createDate) {
 	super();
 	this.consulaireId = consulaireId;
 	this.capital = capital;
@@ -92,11 +92,11 @@ public class FichierConsulaire {
 		this.email = email;
 	}
 
-	public String getCapital() {
+	public Integer getCapital() {
 		return capital;
 	}
 
-	public void setCapital(String capital) {
+	public void setCapital(Integer capital) {
 		this.capital = capital;
 	}
 

@@ -2,21 +2,32 @@ package com.ccimahajanga.gd.service;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ccimahajanga.gd.domain.CertificatOrigine;
 
@@ -148,6 +159,149 @@ public class CertificatOrigineServiceImpl implements CertificatOrigineService {
 		workbook.close();
 		outputStream.flush();
 		outputStream.close();
+		
+	}
+
+	@Override
+	public void upload(MultipartFile multipart) throws IllegalStateException, IOException, InvalidFormatException {
+		List<String> headers 
+		= new ArrayList<>(Arrays.asList("CERTIFICAT_ORIGINE_ID",
+				"NUMERO", "DATE", "NOM_ENTREPRISE", "ADRESSE",
+				"DESTINATION", "PRODUIT", "QUANTITE_EXPORTE", "UNITE",
+				"NOMBRE_DE_CONTENEUR", "PRIX_UNITAIRE", "MONTANT"));
+		DataFormatter dataFormatter = new DataFormatter();
+		InputStream is = multipart.getInputStream();
+		Workbook workbook = WorkbookFactory.create(is);
+		Sheet sheet = workbook.getSheetAt(0);
+		Iterator<Row> rowIterator = sheet.rowIterator();
+		Row row = rowIterator.next();
+		boolean isInsert = this.isInsert(row, headers.get(0));
+		
+		this.validateHeaders(row, headers, isInsert);
+		//this.validateData();
+        while (rowIterator.hasNext()) {
+            row = rowIterator.next();
+            //validateData(row);
+            // Now let's iterate over the columns of the current row
+            Iterator<Cell> cellIterator = row.cellIterator();
+            CertificatOrigine cert = new CertificatOrigine();
+            Cell cell = cellIterator.next();
+            String cellValue;
+            if (!isInsert) {
+                cellValue = dataFormatter.formatCellValue(cell);
+                cert.setCertificatId(Integer.parseInt(cellValue));
+                cell = cellIterator.next();
+            }
+            cellValue = dataFormatter.formatCellValue(cell);
+            if (cellValue != null || !"".equals(cellValue)) {
+            cert.setNumero(Integer.parseInt(cellValue));
+            }
+            
+            //cell = cellIterator.next();
+            //cellValue = dataFormatter.formatCellValue(cell);
+            //cert.setDate(Date.parse(cellValue));
+            
+            cell = cellIterator.next();
+            cellValue = dataFormatter.formatCellValue(cell);
+            cert.setNomEntreprise(cellValue);
+            
+            cell = cellIterator.next();
+            cellValue = dataFormatter.formatCellValue(cell);
+            cert.setAdresse(cellValue);
+            
+            cell = cellIterator.next();
+            cellValue = dataFormatter.formatCellValue(cell);
+            cert.setDestination(cellValue);
+            
+            cell = cellIterator.next();
+            cellValue = dataFormatter.formatCellValue(cell);
+            cert.setProduit(cellValue);
+            
+            cell = cellIterator.next();
+            cellValue = dataFormatter.formatCellValue(cell);
+            if (cellValue != null || !"".equals(cellValue)) {
+            	cert.setQuantiteExporte(Integer.parseInt(cellValue));
+            }
+            
+            cell = cellIterator.next();
+            cellValue = dataFormatter.formatCellValue(cell);
+            if (cellValue != null || !"".equals(cellValue)) {
+            	cert.setNombreConteneur(Integer.parseInt(cellValue));
+            }
+            
+            cell = cellIterator.next();
+            cellValue = dataFormatter.formatCellValue(cell);
+            cert.setPrixUnitaire(cellValue);
+            
+            cell = cellIterator.next();
+            cellValue = dataFormatter.formatCellValue(cell);
+            if (cellValue != null || !"".equals(cellValue)) {
+            	cert.setMontant(Integer.parseInt(cellValue));
+            this.save(cert);
+            }
+        }
+	}
+	
+//	private void validateData(Row row) {
+//		DataFormatter dataFormatter = new DataFormatter();
+//		Iterator<Cell> cellIterator = row.cellIterator();
+//		List<String> dataTypes 
+//			= new ArrayList<>(Arrays.asList("NUMBER/NULL",
+//				"STRING", "STRING", "NUMBER", "STRING"));
+//		Iterator<String> dataTypeIterator = dataTypes.iterator();
+//        while (cellIterator.hasNext()) {
+//            Cell cell = cellIterator.next();
+//            String cellValue = dataFormatter.formatCellValue(cell);
+//            System.out.println(cellValue + "\t");
+//            String dataType = dataTypeIterator.next();
+//            if("NUMBER".equalsIgnoreCase(dataType)) {
+//            	try {
+//            		Integer.getInteger(cellValue);
+//            	} catch (Exception e) {
+//            		throw new IllegalArgumentException("This column accept only numbers. Invalid value: " + cellValue);
+//            	}
+//            	
+//            }
+//            if("NUMBER/NULL".equalsIgnoreCase(dataType) && (cellValue != null && !"".equalsIgnoreCase(cellValue.trim()))) {
+//            	try {
+//            		Integer.getInteger(cellValue);
+//            	} catch (Exception e) {
+//            		throw new IllegalArgumentException("This column accept only numbers. Invalid value: " + cellValue);
+//            	}
+//            	
+//            }
+//        }
+//        System.out.println("Data validated");
+//		
+//	}
+	
+	private boolean isInsert(Row row, String idHeader) {
+		DataFormatter dataFormatter = new DataFormatter();
+		Iterator<Cell> cellIterator = row.cellIterator();
+		Cell cell = cellIterator.next();
+		String cellValue = dataFormatter.formatCellValue(cell);
+		if(cellValue.equals(idHeader)) {
+			return false;
+        }
+		return true;
+	}
+	
+	private void validateHeaders(Row row, List<String> headers, boolean isInsert) {
+		DataFormatter dataFormatter = new DataFormatter();
+		Iterator<Cell> cellIterator = row.cellIterator();
+		Iterator<String> headerIterator = headers.iterator();
+		if (isInsert) {
+			headerIterator.next();
+		}
+        while (cellIterator.hasNext()) {
+        	Cell cell = cellIterator.next();
+            String header = headerIterator.next();
+            String cellValue = dataFormatter.formatCellValue(cell);
+            if(!cellValue.equals(header)) {
+            	throw new IllegalArgumentException("Invalid header " + cellValue);
+            }
+        }
+        System.out.println("Headers validated");
 		
 	}
 }
