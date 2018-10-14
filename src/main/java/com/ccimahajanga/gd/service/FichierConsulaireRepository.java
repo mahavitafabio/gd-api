@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import com.ccimahajanga.gd.domain.FichierConsulaire;
 
 public interface FichierConsulaireRepository extends CrudRepository<FichierConsulaire, Integer>{
-	List<FichierConsulaire> findByNumeroRegistre(Integer NumeroRegistre);
+	List<FichierConsulaire> findByRaisonSocialContaining(String q);
 
 }

@@ -37,8 +37,11 @@ public class OuvrageServiceImpl implements OuvrageService {
 	private OuvragesRepository ouvragesRepository;
 	
 	@Override
-	public Iterable<Ouvrages> get() {
+	public Iterable<Ouvrages> get(String q) {
 		// TODO Auto-generated method stub
+		if (q != null && !"".equals(q.trim())) {
+			return ouvragesRepository.findByTitreOuvragesContaining(q);
+		}
 		return ouvragesRepository.findAll();
 	}
 

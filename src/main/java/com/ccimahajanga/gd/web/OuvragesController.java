@@ -27,8 +27,9 @@ public class OuvragesController {
 	
 	@RequestMapping(method = RequestMethod.GET,
 		    produces = {"application/json"})
-    public Iterable<Ouvrages> getOuvrage() {
-        return ouvrageService.get();
+    public Iterable<Ouvrages> getOuvrage(
+       @RequestParam(value = "q", required = false) String q) {
+        return ouvrageService.get(q);
     }
 	
 	@RequestMapping(method = RequestMethod.POST)

@@ -38,8 +38,10 @@ public class CertificatOrigineServiceImpl implements CertificatOrigineService {
 	private CertificatOrigineRepository certificatOrigineRepository;
 	
 	@Override
-	public Iterable<CertificatOrigine> get() {
-		// TODO Auto-generated method stub
+	public Iterable<CertificatOrigine> get(String q) {
+		if (q != null && !"".equals(q.trim())) {
+			return certificatOrigineRepository.findByProduitContaining(q);
+		}
 		return certificatOrigineRepository.findAll();
 	}
 
@@ -197,9 +199,12 @@ public class CertificatOrigineServiceImpl implements CertificatOrigineService {
             cert.setNumero(Integer.parseInt(cellValue));
             }
             
-            //cell = cellIterator.next();
-            //cellValue = dataFormatter.formatCellValue(cell);
-            //cert.setDate(Date.parse(cellValue));
+            cell = cellIterator.next();
+            Date dateValue = cell.getDateCellValue();
+            if (dateValue != null || !"".equals(dateValue)) {
+            	cert.setDate(dateValue);
+            	cell = cellIterator.next();
+            }
             
             cell = cellIterator.next();
             cellValue = dataFormatter.formatCellValue(cell);
@@ -222,6 +227,10 @@ public class CertificatOrigineServiceImpl implements CertificatOrigineService {
             if (cellValue != null || !"".equals(cellValue)) {
             	cert.setQuantiteExporte(Integer.parseInt(cellValue));
             }
+
+            cell = cellIterator.next();
+            cellValue = dataFormatter.formatCellValue(cell);
+            cert.setUnite(cellValue);
             
             cell = cellIterator.next();
             cellValue = dataFormatter.formatCellValue(cell);

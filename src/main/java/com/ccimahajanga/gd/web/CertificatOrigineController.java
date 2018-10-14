@@ -28,8 +28,9 @@ public class CertificatOrigineController {
 	
 	@RequestMapping(method = RequestMethod.GET,
 		    produces = {"application/json"})
-    public Iterable<CertificatOrigine> getCertificatOrigines() {
-        return certificatOrigineService.get();
+    public Iterable<CertificatOrigine> getCertificatOrigines(
+    		@RequestParam(value = "q", required = false) String q) {
+        return certificatOrigineService.get(q);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)

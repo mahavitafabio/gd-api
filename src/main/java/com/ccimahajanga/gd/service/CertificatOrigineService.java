@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ccimahajanga.gd.domain.CertificatOrigine;
 
 public interface CertificatOrigineService {
-	public Iterable<CertificatOrigine> get();
+	public Iterable<CertificatOrigine> get(String q);
 	public void save(CertificatOrigine certificatOrigine);
 	public void delete(List<Integer> idList);
 	public void export(OutputStream outputStream) throws IOException;

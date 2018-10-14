@@ -27,8 +27,9 @@ public class FichierConsulaireController {
 	
 	@RequestMapping(method = RequestMethod.GET,
 		    produces = {"application/json"})
-    public Iterable<FichierConsulaire> getFichierConsulaires() {
-        return fichierConsulaireService.get();
+    public Iterable<FichierConsulaire> getFichierConsulaires(
+    		@RequestParam(value = "q", required = false) String q) {	
+        return fichierConsulaireService.get(q);
     }
 	
 	@RequestMapping(method = RequestMethod.POST)

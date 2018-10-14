@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ccimahajanga.gd.domain.Ouvrages;
 
 public interface OuvrageService {
-	public Iterable<Ouvrages> get();
+	public Iterable<Ouvrages> get(String q);
 	public void save(Ouvrages ouvrages);
 	public void delete(List<Integer> idList);
 	public void export(OutputStream outputStream) throws IOException;

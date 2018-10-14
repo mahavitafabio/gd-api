@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ccimahajanga.gd.domain.FichierConsulaire;
 
 public interface FichierConsulaireService {
-	public Iterable<FichierConsulaire> get();
+	public Iterable<FichierConsulaire> get(String q);
 	public void save(FichierConsulaire fichierConsulaire);
 	public void delete(List<Integer> idList);
 	public void export(OutputStream outputStream) throws IOException;

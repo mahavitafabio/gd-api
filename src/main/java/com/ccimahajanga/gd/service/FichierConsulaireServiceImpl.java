@@ -38,8 +38,11 @@ public class FichierConsulaireServiceImpl implements FichierConsulaireService {
 	private FichierConsulaireRepository fichierConsulaireRepository;
 	
 	@Override
-	public Iterable<FichierConsulaire> get() {
+	public Iterable<FichierConsulaire> get(String q) {
 		// TODO Auto-generated method stub
+		if (q != null && !"".equals(q.trim())) {
+			return fichierConsulaireRepository.findByRaisonSocialContaining(q);
+		}
 		return fichierConsulaireRepository.findAll();
 	}
 
@@ -241,11 +244,12 @@ public class FichierConsulaireServiceImpl implements FichierConsulaireService {
             cellValue = dataFormatter.formatCellValue(cell);
             fich.setSigle(cellValue);
             
-            //cell = cellIterator.next();
-            //cellValue = dataFormatter.formatCellValue(cell);
-            //if (cellValue != null || !"".equals(cellValue)) {
-            	//fich.setUpdatedDate(Date.parse(cellValue));
-            //}
+            cell = cellIterator.next();
+            Date dateUpValue = cell.getDateCellValue();
+            if (dateUpValue != null || !"".equals(dateUpValue)) {
+            	fich.setUpdatedDate(dateUpValue);
+            	cell = cellIterator.next();
+            }
             this.save(fich);
         }
 	}

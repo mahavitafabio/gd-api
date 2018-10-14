@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import com.ccimahajanga.gd.domain.CertificatOrigine;
 
 public interface CertificatOrigineRepository extends CrudRepository<CertificatOrigine, Integer>{
-	List<CertificatOrigine> findByNumero(Integer numero);
+	List<CertificatOrigine> findByProduitContaining(String q);
 
 }
