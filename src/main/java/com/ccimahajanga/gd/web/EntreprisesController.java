@@ -27,8 +27,9 @@ public class EntreprisesController {
 	
 	@RequestMapping(method = RequestMethod.GET,
 		    produces = {"application/json"})
-    public Iterable<Entreprise> getEntreprises() {
-        return entrepriseService.get();
+    public Iterable<Entreprise> getEntreprises(
+    		@RequestParam(value = "q", required = false) String q) {
+        return entrepriseService.get(q);
     }
 	
 	

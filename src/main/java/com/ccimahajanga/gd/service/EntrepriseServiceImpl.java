@@ -37,8 +37,11 @@ public class EntrepriseServiceImpl implements EntrepriseService {
 	private EntreprisesRepository entreprisesRepository;
 	
 	@Override
-	public Iterable<Entreprise> get() {
+	public Iterable<Entreprise> get(String q) {
 		// TODO Auto-generated method stub
+		if (q != null && !"".equals(q.trim())) {
+			return entreprisesRepository.findByNomEntrepriseContaining(q);
+		}
 		return entreprisesRepository.findAll();
 	}
 

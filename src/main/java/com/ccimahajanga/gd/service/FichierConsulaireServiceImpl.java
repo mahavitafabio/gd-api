@@ -206,11 +206,11 @@ public class FichierConsulaireServiceImpl implements FichierConsulaireService {
             }
             
             cell = cellIterator.next();
-            //cellValue = dataFormatter.formatCellValue(cell);
-            //if (cellValue != null || !"".equals(cellValue)) {
-            	//fich.setCreatedDate(Date.parse(cellValue));
-            	//cell = cellIterator.next();
-            //}
+            Date dateValue = cell.getDateCellValue();
+            if (dateValue != null || !"".equals(dateValue)) {
+            	fich.setCreatedDate(dateValue);
+            	cell = cellIterator.next();
+            }
             
             cellValue = dataFormatter.formatCellValue(cell);
             fich.setEmail(cellValue);
