@@ -38,7 +38,6 @@ public class EntrepriseServiceImpl implements EntrepriseService {
 	
 	@Override
 	public Iterable<Entreprise> get(String q) {
-		// TODO Auto-generated method stub
 		if (q != null && !"".equals(q.trim())) {
 			return entreprisesRepository.findByNomEntrepriseContaining(q);
 		}
@@ -47,7 +46,6 @@ public class EntrepriseServiceImpl implements EntrepriseService {
 
 	@Override
 	public void save(Entreprise entreprise) {
-		// TODO Auto-generated method stub
 		entreprisesRepository.save(entreprise);
 	}
 
