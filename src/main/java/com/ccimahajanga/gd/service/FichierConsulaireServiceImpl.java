@@ -49,8 +49,14 @@ public class FichierConsulaireServiceImpl implements FichierConsulaireService {
 	@Override
 	public void save(FichierConsulaire fichierConsulaire) {
 		// TODO Auto-generated method stub
+		if (fichierConsulaire.getConsulaireId() == null) {
+			fichierConsulaire.setCreatedDate(new Date());
+		} else {
+			fichierConsulaire.setUpdatedDate(new Date());
+		}
 		fichierConsulaireRepository.save(fichierConsulaire);
 	}
+
 
 	@Override
 	public void delete(List<Integer> idList) {
