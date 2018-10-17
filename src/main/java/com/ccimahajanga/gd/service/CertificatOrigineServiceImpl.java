@@ -48,6 +48,9 @@ public class CertificatOrigineServiceImpl implements CertificatOrigineService {
 	@Override
 	public void save(CertificatOrigine certificatOrigine) {
 		// TODO Auto-generated method stub
+		if (certificatOrigine.getCertificatId () == null) {
+			certificatOrigine.setDate (new Date());
+		}
 		certificatOrigineRepository.save(certificatOrigine);
 	}
 
