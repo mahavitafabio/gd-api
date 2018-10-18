@@ -193,10 +193,13 @@ public class CertificatOrigineServiceImpl implements CertificatOrigineService {
                 cert.setCertificatId(Integer.parseInt(cellValue));
                 cell = cellIterator.next();
             }
-            //cellValue = dataFormatter.formatCellValue(cell);
-            //if (cellValue != null || !"".equals(cellValue)) {
-            //cert.setNumero(Integer.parseInt(cellValue));
-           // }
+            
+            cellValue = dataFormatter.formatCellValue(cell);
+            if (cellValue != null || !"".equals(cellValue)) {
+            cert.setNumero(Integer.parseInt(cellValue));
+            }
+            
+            cell = cellIterator.next();
             
             cellValue = dataFormatter.formatCellValue(cell);
             cert.setDate(cellValue);
