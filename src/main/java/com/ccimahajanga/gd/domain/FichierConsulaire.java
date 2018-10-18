@@ -1,7 +1,5 @@
 package com.ccimahajanga.gd.domain;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,13 +20,13 @@ public class FichierConsulaire {
 	private Integer numeroRegistre;
 	private Integer numeroFiscal;
 	private Integer numeroIdentite;
-	private Date updatedDate;
-	private Date createdDate;
+	private String updatedDate;
+	private String createdDate;
 	
 	public FichierConsulaire() {}
 	
 	public FichierConsulaire(Integer consulaireId, String raisonSocial, String sigle, String formeJuridique, String adresse, String email,
-			Integer capital, Integer numeroRegistre, Integer numeroFiscal, Integer numeroIdentite, Date updateDate, Date createDate) {
+			Integer capital, Integer numeroRegistre, Integer numeroFiscal, Integer numeroIdentite, String updateDate, String createDate) {
 	super();
 	this.consulaireId = consulaireId;
 	this.capital = capital;
@@ -124,19 +122,19 @@ public class FichierConsulaire {
 		this.numeroIdentite = numeroIdentite;
 	}
 
-	public Date getUpdatedDate() {
+	public String getUpdatedDate() {
 		return updatedDate;
 	}
 
-	public void setUpdatedDate(Date updateDate) {
+	public void setUpdatedDate(String updateDate) {
 		this.updatedDate = updateDate;
 	}
 
-	public Date getCreatedDate() {
+	public String getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createDate) {
+	public void setCreatedDate(String createDate) {
 		this.createdDate = createDate;
 	}
 	

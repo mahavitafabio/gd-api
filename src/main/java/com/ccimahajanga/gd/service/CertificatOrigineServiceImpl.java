@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -48,9 +47,6 @@ public class CertificatOrigineServiceImpl implements CertificatOrigineService {
 	@Override
 	public void save(CertificatOrigine certificatOrigine) {
 		// TODO Auto-generated method stub
-		if (certificatOrigine.getCertificatId () == null) {
-			certificatOrigine.setDate (new Date());
-		}
 		certificatOrigineRepository.save(certificatOrigine);
 	}
 
@@ -203,11 +199,9 @@ public class CertificatOrigineServiceImpl implements CertificatOrigineService {
             }
             
             cell = cellIterator.next();
-            Date dateValue = cell.getDateCellValue();
-            if (dateValue != null || !"".equals(dateValue)) {
-            	cert.setDate(dateValue);
-            	cell = cellIterator.next();
-            }
+            cell = cellIterator.next();
+            cellValue = dataFormatter.formatCellValue(cell);
+            cert.setDate(cellValue);
             
             cell = cellIterator.next();
             cellValue = dataFormatter.formatCellValue(cell);

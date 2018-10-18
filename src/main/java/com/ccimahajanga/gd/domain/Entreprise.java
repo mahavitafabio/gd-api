@@ -13,7 +13,7 @@ public class Entreprise {
 	private Integer entreprisesId;
 	private String nomEntreprise;
 	private String adresseEntreprise;
-	private Integer contact;
+	private String contact;
 	private String nomResponsable;
 	private String activitePrincipale;
 
@@ -21,7 +21,7 @@ public class Entreprise {
 
 	}
 
-	public Entreprise(Integer entreprisesId, String nomEntreprise, String adresseEntreprise, Integer contact,
+	public Entreprise(Integer entreprisesId, String nomEntreprise, String adresseEntreprise, String contact,
 			String nomResponsable, String activitePrincipale) {
 		super();
 		this.entreprisesId = entreprisesId;
@@ -56,11 +56,11 @@ public class Entreprise {
 		this.adresseEntreprise = adresseEntreprise;
 	}
 
-	public Integer getContact() {
+	public String getContact() {
 		return contact;
 	}
 
-	public void setContact(Integer contact) {
+	public void setContact(String contact) {
 		this.contact = contact;
 	}
 

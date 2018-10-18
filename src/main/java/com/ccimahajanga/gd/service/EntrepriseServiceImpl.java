@@ -171,9 +171,8 @@ public class EntrepriseServiceImpl implements EntrepriseService {
             
             cell = cellIterator.next();
             cellValue = dataFormatter.formatCellValue(cell);
-            if (cellValue != null || !"".equals(cellValue)) {
-            	ent.setContact(Integer.parseInt(cellValue));
-            }
+            ent.setContact(cellValue);
+            
             
             cell = cellIterator.next();
             cellValue = dataFormatter.formatCellValue(cell);

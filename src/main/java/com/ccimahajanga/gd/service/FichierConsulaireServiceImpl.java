@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -49,11 +48,6 @@ public class FichierConsulaireServiceImpl implements FichierConsulaireService {
 	@Override
 	public void save(FichierConsulaire fichierConsulaire) {
 		// TODO Auto-generated method stub
-		if (fichierConsulaire.getConsulaireId() == null) {
-			fichierConsulaire.setCreatedDate(new Date());
-		} else {
-			fichierConsulaire.setUpdatedDate(new Date());
-		}
 		fichierConsulaireRepository.save(fichierConsulaire);
 	}
 
@@ -215,11 +209,11 @@ public class FichierConsulaireServiceImpl implements FichierConsulaireService {
             }
             
             cell = cellIterator.next();
-            Date dateValue = cell.getDateCellValue();
-            if (dateValue != null || !"".equals(dateValue)) {
-            	fich.setCreatedDate(dateValue);
-            	cell = cellIterator.next();
-            }
+            cell = cellIterator.next();
+            cellValue = dataFormatter.formatCellValue(cell);
+            fich.setCreatedDate(cellValue);
+            cell = cellIterator.next();
+           
             
             cellValue = dataFormatter.formatCellValue(cell);
             fich.setEmail(cellValue);
@@ -251,11 +245,8 @@ public class FichierConsulaireServiceImpl implements FichierConsulaireService {
             fich.setSigle(cellValue);
             
             cell = cellIterator.next();
-            Date dateUpValue = cell.getDateCellValue();
-            if (dateUpValue != null || !"".equals(dateUpValue)) {
-            	fich.setUpdatedDate(dateUpValue);
-            	cell = cellIterator.next();
-            }
+            cellValue = dataFormatter.formatCellValue(cell);
+            fich.setUpdatedDate(cellValue);
             this.save(fich);
         }
 	}

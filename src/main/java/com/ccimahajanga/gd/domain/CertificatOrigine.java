@@ -1,6 +1,5 @@
 package com.ccimahajanga.gd.domain;
 
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +13,7 @@ public class CertificatOrigine {
 	 @GeneratedValue
 	 private Integer certificatId;
 	 private Integer numero;
-	 private Date date;
+	 private String date;
 	 private String nomEntreprise;
 	 private String adresse;
 	 private String destination;
@@ -28,7 +27,7 @@ public class CertificatOrigine {
 	 public CertificatOrigine() {
 		 
 	 }
-	 public CertificatOrigine(Integer certificatId, Integer numero, Date date, String nomEntreprise, String adresse, String destination, String produit, Integer quantiteExporte, String unite, Integer nombreConteneur, String prixUnitaire, Integer montant) {
+	 public CertificatOrigine(Integer certificatId, Integer numero, String date, String nomEntreprise, String adresse, String destination, String produit, Integer quantiteExporte, String unite, Integer nombreConteneur, String prixUnitaire, Integer montant) {
 		 super();
 		 this.certificatId = certificatId;
 		 this.numero = numero;
@@ -56,10 +55,10 @@ public class CertificatOrigine {
 	public void setCertificatId(Integer certificatId) {
 		this.certificatId = certificatId;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public String getNomEntreprise() {
