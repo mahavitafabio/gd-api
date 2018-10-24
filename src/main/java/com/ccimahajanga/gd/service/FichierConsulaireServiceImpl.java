@@ -209,6 +209,7 @@ public class FichierConsulaireServiceImpl implements FichierConsulaireService {
             }
             
             cell = cellIterator.next();
+            cell = cellIterator.next();
             cellValue = dataFormatter.formatCellValue(cell);
             fich.setCreatedDate(cellValue);
             cell = cellIterator.next();
