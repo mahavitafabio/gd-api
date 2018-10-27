@@ -15,52 +15,53 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ccimahajanga.gd.domain.Ouvrages;
-import com.ccimahajanga.gd.service.OuvrageService;
+import com.ccimahajanga.gd.domain.Co2020;
+import com.ccimahajanga.gd.service.Co2020Service;
+
 
 @RestController
-@RequestMapping("/ouvrage")
-public class OuvragesController {
+@RequestMapping("/certificat20")
+public class Co2020Controller {
 	
 	@Autowired
-	private OuvrageService ouvrageService;
+	private Co2020Service co2020Service;
 	
 	@RequestMapping(method = RequestMethod.GET,
 		    produces = {"application/json"})
-    public Iterable<Ouvrages> getOuvrage(
-       @RequestParam(value = "q", required = false) String q) {
-        return ouvrageService.get(q);
-    }
+    public Iterable<Co2020> getCo2020(
+    		@RequestParam(value = "q", required = false) String q) {
+        return co2020Service.get(q);
+	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-    public void postOuvrage(@RequestBody Ouvrages ouvrages) {
-		System.out.println(ouvrages);
-		ouvrageService.save(ouvrages);
+    public void postCo2020(@RequestBody Co2020 co2020) {
+		System.out.println(co2020);
+		co2020Service.save(co2020);
     }
 	
 	@RequestMapping(method = RequestMethod.PUT)
-    public void putOuvrage(@RequestBody Ouvrages ouvrages) {
-		System.out.println(ouvrages);
-		ouvrageService.save(ouvrages);
+    public void putCo2020(@RequestBody Co2020 co2020) {
+		System.out.println(co2020);
+		co2020Service.save(co2020);
     }
 	
 	@RequestMapping(method = RequestMethod.DELETE)
-    public void deleteOuvrage(@RequestBody List<Integer> idList) {
+    public void deleteCo2020(@RequestBody List<Integer> idList) {
 		System.out.println(idList);
-		ouvrageService.delete(idList);
+		co2020Service.delete(idList);
     }
 	
 	@RequestMapping(value="/export", method = RequestMethod.GET)
-    public void exportOuvrage(HttpServletResponse response) throws IOException {
+    public void exportCo2020(HttpServletResponse response) throws IOException {
 		response.setContentType("application/octet-stream");
-		response.addHeader("Content-disposition", "attachment; filename=ouvrages.xlsx");
+		response.addHeader("Content-disposition", "attachment; filename=certificatOrigines20.xlsx");
 		response.addHeader("Cache-Control", "no-cache");
-		ouvrageService.export(response.getOutputStream());
+		co2020Service.export(response.getOutputStream());
     }
 	
 	@RequestMapping(value="/upload", method = RequestMethod.POST)
-    public void uploadOuvrage(@RequestParam("data") MultipartFile file) throws IOException, EncryptedDocumentException, InvalidFormatException {
-		ouvrageService.upload(file);
+    public void uploadCo2020(@RequestParam("data") MultipartFile file) throws IOException, EncryptedDocumentException, InvalidFormatException {
+		co2020Service.upload(file);
     }
 
 }

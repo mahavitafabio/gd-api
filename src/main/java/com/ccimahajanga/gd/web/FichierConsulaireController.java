@@ -59,7 +59,7 @@ public class FichierConsulaireController {
     }
 	
 	@RequestMapping(value="/upload", method = RequestMethod.POST)
-    public void uploadEntreprises(@RequestParam("data") MultipartFile file) throws IOException, EncryptedDocumentException, InvalidFormatException {
+    public void uploadFichierConsulaires(@RequestParam("data") MultipartFile file) throws IOException, EncryptedDocumentException, InvalidFormatException {
 		fichierConsulaireService.upload(file);
     }
 }

@@ -15,52 +15,54 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ccimahajanga.gd.domain.Ouvrages;
-import com.ccimahajanga.gd.service.OuvrageService;
+import com.ccimahajanga.gd.domain.Guide;
+import com.ccimahajanga.gd.service.GuideService;
+
+
 
 @RestController
-@RequestMapping("/ouvrage")
-public class OuvragesController {
+@RequestMapping("/guide")
+public class GuideController {
 	
 	@Autowired
-	private OuvrageService ouvrageService;
+	private GuideService guideService;
 	
 	@RequestMapping(method = RequestMethod.GET,
 		    produces = {"application/json"})
-    public Iterable<Ouvrages> getOuvrage(
+    public Iterable<Guide> getGuide(
        @RequestParam(value = "q", required = false) String q) {
-        return ouvrageService.get(q);
+        return guideService.get(q);
     }
 	
 	@RequestMapping(method = RequestMethod.POST)
-    public void postOuvrage(@RequestBody Ouvrages ouvrages) {
-		System.out.println(ouvrages);
-		ouvrageService.save(ouvrages);
+    public void postGuide(@RequestBody Guide guide) {
+		System.out.println(guide);
+		guideService.save(guide);
     }
 	
 	@RequestMapping(method = RequestMethod.PUT)
-    public void putOuvrage(@RequestBody Ouvrages ouvrages) {
-		System.out.println(ouvrages);
-		ouvrageService.save(ouvrages);
+    public void putGuide(@RequestBody Guide guide) {
+		System.out.println(guide);
+		guideService.save(guide);
     }
 	
 	@RequestMapping(method = RequestMethod.DELETE)
-    public void deleteOuvrage(@RequestBody List<Integer> idList) {
+    public void deleteGuide(@RequestBody List<Integer> idList) {
 		System.out.println(idList);
-		ouvrageService.delete(idList);
+		guideService.delete(idList);
     }
 	
 	@RequestMapping(value="/export", method = RequestMethod.GET)
-    public void exportOuvrage(HttpServletResponse response) throws IOException {
+    public void exportGuide(HttpServletResponse response) throws IOException {
 		response.setContentType("application/octet-stream");
-		response.addHeader("Content-disposition", "attachment; filename=ouvrages.xlsx");
+		response.addHeader("Content-disposition", "attachment; filename=guides.xlsx");
 		response.addHeader("Cache-Control", "no-cache");
-		ouvrageService.export(response.getOutputStream());
+		guideService.export(response.getOutputStream());
     }
 	
 	@RequestMapping(value="/upload", method = RequestMethod.POST)
-    public void uploadOuvrage(@RequestParam("data") MultipartFile file) throws IOException, EncryptedDocumentException, InvalidFormatException {
-		ouvrageService.upload(file);
+    public void uploadGuide(@RequestParam("data") MultipartFile file) throws IOException, EncryptedDocumentException, InvalidFormatException {
+		guideService.upload(file);
     }
 
 }

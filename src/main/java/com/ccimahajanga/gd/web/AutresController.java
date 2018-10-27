@@ -15,52 +15,54 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ccimahajanga.gd.domain.Ouvrages;
-import com.ccimahajanga.gd.service.OuvrageService;
+import com.ccimahajanga.gd.domain.Autres;
+import com.ccimahajanga.gd.service.AutresService;
+
+
 
 @RestController
-@RequestMapping("/ouvrage")
-public class OuvragesController {
+@RequestMapping("/autres")
+public class AutresController {
 	
 	@Autowired
-	private OuvrageService ouvrageService;
+	private AutresService autresService;
 	
 	@RequestMapping(method = RequestMethod.GET,
 		    produces = {"application/json"})
-    public Iterable<Ouvrages> getOuvrage(
+    public Iterable<Autres> getAutres(
        @RequestParam(value = "q", required = false) String q) {
-        return ouvrageService.get(q);
+        return autresService.get(q);
     }
 	
 	@RequestMapping(method = RequestMethod.POST)
-    public void postOuvrage(@RequestBody Ouvrages ouvrages) {
-		System.out.println(ouvrages);
-		ouvrageService.save(ouvrages);
+    public void postAutres(@RequestBody Autres autres) {
+		System.out.println(autres);
+		autresService.save(autres);
     }
 	
 	@RequestMapping(method = RequestMethod.PUT)
-    public void putOuvrage(@RequestBody Ouvrages ouvrages) {
-		System.out.println(ouvrages);
-		ouvrageService.save(ouvrages);
+    public void putAutres(@RequestBody Autres autres) {
+		System.out.println(autres);
+		autresService.save(autres);
     }
 	
 	@RequestMapping(method = RequestMethod.DELETE)
-    public void deleteOuvrage(@RequestBody List<Integer> idList) {
+    public void deleteAutres(@RequestBody List<Integer> idList) {
 		System.out.println(idList);
-		ouvrageService.delete(idList);
+		autresService.delete(idList);
     }
 	
 	@RequestMapping(value="/export", method = RequestMethod.GET)
-    public void exportOuvrage(HttpServletResponse response) throws IOException {
+    public void exportAutres(HttpServletResponse response) throws IOException {
 		response.setContentType("application/octet-stream");
 		response.addHeader("Content-disposition", "attachment; filename=ouvrages.xlsx");
 		response.addHeader("Cache-Control", "no-cache");
-		ouvrageService.export(response.getOutputStream());
+		autresService.export(response.getOutputStream());
     }
 	
 	@RequestMapping(value="/upload", method = RequestMethod.POST)
-    public void uploadOuvrage(@RequestParam("data") MultipartFile file) throws IOException, EncryptedDocumentException, InvalidFormatException {
-		ouvrageService.upload(file);
+    public void uploadAutres(@RequestParam("data") MultipartFile file) throws IOException, EncryptedDocumentException, InvalidFormatException {
+		autresService.upload(file);
     }
 
 }

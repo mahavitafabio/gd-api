@@ -60,7 +60,7 @@ public class CertificatOrigineController {
     }
 	
 	@RequestMapping(value="/upload", method = RequestMethod.POST)
-    public void uploadEntreprises(@RequestParam("data") MultipartFile file) throws IOException, EncryptedDocumentException, InvalidFormatException {
+    public void uploadCertificatOrigines(@RequestParam("data") MultipartFile file) throws IOException, EncryptedDocumentException, InvalidFormatException {
 		certificatOrigineService.upload(file);
     }
 	

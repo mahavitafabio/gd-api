@@ -15,52 +15,53 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ccimahajanga.gd.domain.Ouvrages;
-import com.ccimahajanga.gd.service.OuvrageService;
+import com.ccimahajanga.gd.domain.Co2017;
+import com.ccimahajanga.gd.service.Co2017Service;
+
 
 @RestController
-@RequestMapping("/ouvrage")
-public class OuvragesController {
+@RequestMapping("/certificat17")
+public class Co2017Controller {
 	
 	@Autowired
-	private OuvrageService ouvrageService;
+	private Co2017Service co2017Service;
 	
 	@RequestMapping(method = RequestMethod.GET,
 		    produces = {"application/json"})
-    public Iterable<Ouvrages> getOuvrage(
-       @RequestParam(value = "q", required = false) String q) {
-        return ouvrageService.get(q);
-    }
+    public Iterable<Co2017> getCo2017(
+    		@RequestParam(value = "q", required = false) String q) {
+        return co2017Service.get(q);
+	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-    public void postOuvrage(@RequestBody Ouvrages ouvrages) {
-		System.out.println(ouvrages);
-		ouvrageService.save(ouvrages);
+    public void postCo2017(@RequestBody Co2017 co2017) {
+		System.out.println(co2017);
+		co2017Service.save(co2017);
     }
 	
 	@RequestMapping(method = RequestMethod.PUT)
-    public void putOuvrage(@RequestBody Ouvrages ouvrages) {
-		System.out.println(ouvrages);
-		ouvrageService.save(ouvrages);
+    public void putCo2017(@RequestBody Co2017 co2017) {
+		System.out.println(co2017);
+		co2017Service.save(co2017);
     }
 	
 	@RequestMapping(method = RequestMethod.DELETE)
-    public void deleteOuvrage(@RequestBody List<Integer> idList) {
+    public void deleteCo2017(@RequestBody List<Integer> idList) {
 		System.out.println(idList);
-		ouvrageService.delete(idList);
+		co2017Service.delete(idList);
     }
 	
 	@RequestMapping(value="/export", method = RequestMethod.GET)
-    public void exportOuvrage(HttpServletResponse response) throws IOException {
+    public void exportCo2017(HttpServletResponse response) throws IOException {
 		response.setContentType("application/octet-stream");
-		response.addHeader("Content-disposition", "attachment; filename=ouvrages.xlsx");
+		response.addHeader("Content-disposition", "attachment; filename=certificatOrigines17.xlsx");
 		response.addHeader("Cache-Control", "no-cache");
-		ouvrageService.export(response.getOutputStream());
+		co2017Service.export(response.getOutputStream());
     }
 	
 	@RequestMapping(value="/upload", method = RequestMethod.POST)
-    public void uploadOuvrage(@RequestParam("data") MultipartFile file) throws IOException, EncryptedDocumentException, InvalidFormatException {
-		ouvrageService.upload(file);
+    public void uploadCo2017(@RequestParam("data") MultipartFile file) throws IOException, EncryptedDocumentException, InvalidFormatException {
+		co2017Service.upload(file);
     }
 
 }
