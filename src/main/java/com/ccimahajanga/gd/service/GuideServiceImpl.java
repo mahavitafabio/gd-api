@@ -90,7 +90,7 @@ public class GuideServiceImpl implements GuideService {
 		Row header = sheet.createRow(0);
 		Cell cell = header.createCell(0);
 		cell.setCellStyle(headerStyle);
-		cell.setCellValue("Guide_ID");
+		cell.setCellValue("GUIDE_ID");
 		cell = header.createCell(1);
 		cell.setCellStyle(headerStyle);
 		cell.setCellValue("CODE_OUVRAGE");

@@ -122,9 +122,6 @@ public class FichierConsulaireServiceImpl implements FichierConsulaireService {
 		cell = header.createCell(10);
 		cell.setCellStyle(headerStyle);
 		cell.setCellValue("SIGLE");
-		cell = header.createCell(11);
-		cell.setCellStyle(headerStyle);
-		cell.setCellValue("DATE_DE_MODIFICATION");
 		
 		Iterable<FichierConsulaire> fichierConsulaireList = fichierConsulaireRepository.findAll();
 		int i = 1;
@@ -152,8 +149,6 @@ public class FichierConsulaireServiceImpl implements FichierConsulaireService {
 			cell.setCellValue(fichierConsulaire.getNumeroRegistre());
 			cell = row.createCell(10);
 			cell.setCellValue(fichierConsulaire.getSigle());
-			cell = row.createCell(11);
-			cell.setCellValue(fichierConsulaire.getUpdatedDate());
 		}
 		System.out.println("created worksheet");
 		
@@ -171,7 +166,7 @@ public class FichierConsulaireServiceImpl implements FichierConsulaireService {
 		= new ArrayList<>(Arrays.asList("CONSULAIRE_ID",
 				"RAISON_SOCIAL", "ADRESSE", "CAPITAL",
 				"DATE_DE_CREATION", "EMAIL", "FORME_JURIDIQUE", "NUMERO_FISCAL", "NUMERO_IDENTITE", "NUMERO_REGISTRE",
-				"SIGLE", "DATE_DE_MODIFICATION"));
+				"SIGLE"));
 		DataFormatter dataFormatter = new DataFormatter();
 		InputStream is = multipart.getInputStream();
 		Workbook workbook = WorkbookFactory.create(is);
@@ -242,10 +237,6 @@ public class FichierConsulaireServiceImpl implements FichierConsulaireService {
             cell = cellIterator.next();
             cellValue = dataFormatter.formatCellValue(cell);
             fich.setSigle(cellValue);
-            
-            cell = cellIterator.next();
-            cellValue = dataFormatter.formatCellValue(cell);
-            fich.setUpdatedDate(cellValue);
             this.save(fich);
         }
 	}

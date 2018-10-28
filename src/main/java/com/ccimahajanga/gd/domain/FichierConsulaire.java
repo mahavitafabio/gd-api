@@ -20,19 +20,17 @@ public class FichierConsulaire {
 	private Integer numeroRegistre;
 	private Integer numeroFiscal;
 	private Integer numeroIdentite;
-	private String updatedDate;
 	private String createdDate;
 	
 	public FichierConsulaire() {}
 	
 	public FichierConsulaire(Integer consulaireId, String raisonSocial, String sigle, String formeJuridique, String adresse, String email,
-			Integer capital, Integer numeroRegistre, Integer numeroFiscal, Integer numeroIdentite, String updateDate, String createDate) {
+			Integer capital, Integer numeroRegistre, Integer numeroFiscal, Integer numeroIdentite, String createDate) {
 	super();
 	this.consulaireId = consulaireId;
 	this.capital = capital;
 	this.adresse = adresse;
 	this.createdDate = createDate;
-	this.updatedDate = updateDate;
 	this.email = email;
 	this.formeJuridique = formeJuridique;
 	this.numeroFiscal = numeroFiscal;
@@ -122,14 +120,6 @@ public class FichierConsulaire {
 		this.numeroIdentite = numeroIdentite;
 	}
 
-	public String getUpdatedDate() {
-		return updatedDate;
-	}
-
-	public void setUpdatedDate(String updateDate) {
-		this.updatedDate = updateDate;
-	}
-
 	public String getCreatedDate() {
 		return createdDate;
 	}
@@ -141,8 +131,7 @@ public class FichierConsulaire {
 	@Override
 	public String toString() {
 		return "FichierConsulaire [consulaireId=" + consulaireId + ", capital=" + capital 
-				+ ", adresse=" + adresse + ", createdDate=" + createdDate + ", updatedDate=" + updatedDate 
-				+ ", email=" + email + ", formeJuridique=" + formeJuridique
+				+ ", adresse=" + adresse + ", createdDate=" + createdDate + ", email=" + email + ", formeJuridique=" + formeJuridique
 				+ ", numeroFiscal=" + numeroFiscal + ", formeJuridique=" + formeJuridique + ", numeroFiscal="
 				+ numeroFiscal + ", numeroIdentite=" + numeroIdentite + ", numeroRegistre=" + numeroRegistre 
 				+ ", raisonSocial=" + raisonSocial + ", sigle=" + sigle + "]";
