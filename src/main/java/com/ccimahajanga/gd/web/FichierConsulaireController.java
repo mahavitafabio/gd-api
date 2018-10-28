@@ -1,6 +1,7 @@
 package com.ccimahajanga.gd.web;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -51,7 +52,7 @@ public class FichierConsulaireController {
     }
 	
 	@RequestMapping(value="/export", method = RequestMethod.GET)
-    public void exportFichierConsulaires(HttpServletResponse response) throws IOException {
+    public void exportFichierConsulaires(HttpServletResponse response) throws IOException, ParseException {
 		response.setContentType("application/octet-stream");
 		response.addHeader("Content-disposition", "attachment; filename=fichierConsulaires.xlsx");
 		response.addHeader("Cache-Control", "no-cache");
