@@ -243,10 +243,9 @@ public class Co2022ServiceImpl implements Co2022Service {
             
             cell = cellIterator.next();
             cellValue = dataFormatter.formatCellValue(cell);
-            if (cellValue != null || !"".equals(cellValue)) {
-            	cerfit.setMontant(Integer.parseInt(cellValue));
+            cerfit.setMontant(cellValue);
             this.save(cerfit);
-            }
+            
         }
 	}
 	

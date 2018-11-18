@@ -240,10 +240,9 @@ public class CertificatOrigineServiceImpl implements CertificatOrigineService {
             
             cell = cellIterator.next();
             cellValue = dataFormatter.formatCellValue(cell);
-            if (cellValue != null || !"".equals(cellValue)) {
-            	cert.setMontant(Integer.parseInt(cellValue));
+            cert.setMontant(cellValue);
             this.save(cert);
-            }
+            
         }
 	}
 	

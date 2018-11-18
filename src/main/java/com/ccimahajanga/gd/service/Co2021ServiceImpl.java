@@ -243,10 +243,10 @@ public class Co2021ServiceImpl implements Co2021Service {
             
             cell = cellIterator.next();
             cellValue = dataFormatter.formatCellValue(cell);
-            if (cellValue != null || !"".equals(cellValue)) {
-            	cerf.setMontant(Integer.parseInt(cellValue));
+            
+            cerf.setMontant(cellValue);
             this.save(cerf);
-            }
+            
         }
 	}
 	

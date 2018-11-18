@@ -22,12 +22,12 @@ public class CertificatOrigine {
 	 private String unite;
 	 private Integer nombreConteneur;
 	 private String prixUnitaire;
-	 private Integer montant;
+	 private String montant;
 	 
 	 public CertificatOrigine() {
 		 
 	 }
-	 public CertificatOrigine(Integer certificatId, Integer numero, String date, String nomEntreprise, String adresse, String destination, String produit, Integer quantiteExporte, String unite, Integer nombreConteneur, String prixUnitaire, Integer montant) {
+	 public CertificatOrigine(Integer certificatId, Integer numero, String date, String nomEntreprise, String adresse, String destination, String produit, Integer quantiteExporte, String unite, Integer nombreConteneur, String prixUnitaire, String montant) {
 		 super();
 		 this.certificatId = certificatId;
 		 this.numero = numero;
@@ -109,10 +109,10 @@ public class CertificatOrigine {
 	public void setPrixUnitaire(String prixUnitaire) {
 		this.prixUnitaire = prixUnitaire;
 	}
-	public Integer getMontant() {
+	public String getMontant() {
 		return montant;
 	}
-	public void setMontant(Integer montant) {
+	public void setMontant(String montant) {
 		this.montant = montant;
 	}
 	 

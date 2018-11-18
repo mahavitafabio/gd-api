@@ -243,10 +243,10 @@ public class Co2020ServiceImpl implements Co2020Service {
             
             cell = cellIterator.next();
             cellValue = dataFormatter.formatCellValue(cell);
-            if (cellValue != null || !"".equals(cellValue)) {
-            	certi.setMontant(Integer.parseInt(cellValue));
+            
+            certi.setMontant(cellValue);
             this.save(certi);
-            }
+            
         }
 	}
 	

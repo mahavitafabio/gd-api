@@ -243,10 +243,10 @@ public class Co2019ServiceImpl implements Co2019Service {
             
             cell = cellIterator.next();
             cellValue = dataFormatter.formatCellValue(cell);
-            if (cellValue != null || !"".equals(cellValue)) {
-            	certif.setMontant(Integer.parseInt(cellValue));
+            
+            certif.setMontant(cellValue);
             this.save(certif);
-            }
+            
         }
 	}
 	

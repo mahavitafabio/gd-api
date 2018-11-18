@@ -243,10 +243,9 @@ public class Co2018ServiceImpl implements Co2018Service {
             
             cell = cellIterator.next();
             cellValue = dataFormatter.formatCellValue(cell);
-            if (cellValue != null || !"".equals(cellValue)) {
-            	ce.setMontant(Integer.parseInt(cellValue));
+            ce.setMontant(cellValue);
             this.save(ce);
-            }
+            
         }
 	}
 	

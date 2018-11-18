@@ -243,10 +243,9 @@ public class Co2023ServiceImpl implements Co2023Service {
             
             cell = cellIterator.next();
             cellValue = dataFormatter.formatCellValue(cell);
-            if (cellValue != null || !"".equals(cellValue)) {
-            	cerc.setMontant(Integer.parseInt(cellValue));
+            cerc.setMontant(cellValue);
             this.save(cerc);
-            }
+            
         }
 	}
 	

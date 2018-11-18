@@ -21,12 +21,12 @@ public class Co2022 {
 	 private String unite;
 	 private Integer nombreConteneur;
 	 private String prixUnitaire;
-	 private Integer montant;
+	 private String montant;
 	 
 	 public Co2022() {
 		 
 	 }
-	 public Co2022(Integer co2022Id, Integer numero, String date, String nomEntreprise, String adresse, String destination, String produit, Integer quantiteExporte, String unite, Integer nombreConteneur, String prixUnitaire, Integer montant) {
+	 public Co2022(Integer co2022Id, Integer numero, String date, String nomEntreprise, String adresse, String destination, String produit, Integer quantiteExporte, String unite, Integer nombreConteneur, String prixUnitaire, String montant) {
 		 super();
 		 this.co2022Id = co2022Id;
 		 this.numero = numero;
@@ -108,10 +108,10 @@ public class Co2022 {
 	public void setPrixUnitaire(String prixUnitaire) {
 		this.prixUnitaire = prixUnitaire;
 	}
-	public Integer getMontant() {
+	public String getMontant() {
 		return montant;
 	}
-	public void setMontant(Integer montant) {
+	public void setMontant(String montant) {
 		this.montant = montant;
 	}
 	 
